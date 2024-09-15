@@ -26,16 +26,11 @@ class CashwithdrawController extends Controller
         $adminData = User::select("users.*")->where('users.id',$request->user_id)->first();
 
         //vendor wallet
-        $wallet = OrderDetail::where('vendor_id', Auth::guard('admin')->user()->id)->pluck('order_id')->toArray();
-        $walletValue = Order::whereIn('id', $wallet)->sum('grand_total');
-
-        //vendor commission
-        $orderID = Order::whereIn('id', $wallet)->pluck('id');
-        $matchedorderID = OrderDetail::whereIn('order_id', $orderID)->get();
-        $commissionValue = $matchedorderID->sum('v_comission');
+        $wallet = OrderDetail::where('vendor_id', Auth::guard('admin')->user()->id)->sum('price');
+        $commissionValue = OrderDetail::where('vendor_id', Auth::guard('admin')->user()->id)->sum('v_comission');
 
         //vendor wallet Value
-        $vendorWalletValue = $walletValue - $commissionValue;
+        $vendorWalletValue = $wallet - $commissionValue;
 
         if($request->amount>$vendorWalletValue){
             $notification = array(
@@ -43,7 +38,7 @@ class CashwithdrawController extends Controller
                 'alert-type' => 'error'
             );
             return redirect()->back()->with($notification);
-           
+
         }else{
             $withdraw = new Cashwithdraw();
             $withdraw->vendor_id = $request->user_id;
@@ -114,11 +109,11 @@ class CashwithdrawController extends Controller
         $withdraw = Cashwithdraw::findOrFail($id);
         $user = User::findOrFail($withdraw->vendor_id);
 
-        $order = OrderDetail::where('vendor_id', $user->id)->pluck('order_id')->toArray();
-        $orderID = Order::whereIn('id', $order)->sum('grand_total');
+        //$order = OrderDetail::where('vendor_id', $user->id)->pluck('order_id')->toArray();
+        $orderID = OrderDetail::where('vendor_id', $user->id)->sum('price');
         $wallet = OrderDetail::where('vendor_id', $user->id)->sum('v_comission');
         $vendorWalletValue = $orderID - $wallet;
-        
+
         $user->income = $vendorWalletValue - $withdraw->amount;
         $user->save();
 

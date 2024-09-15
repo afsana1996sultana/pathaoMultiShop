@@ -182,19 +182,11 @@ class AdminController extends Controller
         $countLowProducts = Product::whereColumn('low_qty', '>=', 'stock_qty')->count();
 
         //vendor wallet
-        $wallet = OrderDetail::where('vendor_id', Auth::guard('admin')->user()->id)->pluck('order_id')->toArray();
-        $walletValue = Order::whereIn('id', $wallet)->sum('sub_total');
-        //return $walletValue;
-
-        //vendor commission
-        $orderID = Order::whereIn('id', $wallet)->pluck('id');
-        $matchedorderID = OrderDetail::whereIn('order_id', $orderID)->get();
-        $commissionValue = $matchedorderID->sum('v_comission');
-        //return $walletValue;
+        $wallet = OrderDetail::where('vendor_id', Auth::guard('admin')->user()->id)->sum('price');
+        $commissionValue = OrderDetail::where('vendor_id', Auth::guard('admin')->user()->id)->sum('v_comission');
 
         //vendor wallet Value
-        $vendorWalletValue = $walletValue - $commissionValue;
-        //dd($vendorWalletValue);
+        $vendorWalletValue = $wallet - $commissionValue;
 
         //cash withdraw Value
         $withdraw = Cashwithdraw::where('vendor_id', Auth::guard('admin')->user()->id)->get();
