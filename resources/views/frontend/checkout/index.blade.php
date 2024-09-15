@@ -417,29 +417,6 @@
                             var grand_total_price = ((subtotal + shipping_charge) - coupon_discount);
                             $('#grand_total_set').html(grand_total_price);
                             $('#grand_total').val(grand_total_price);
-
-                            // Show/hide outside_city based on shipping type
-                            // if (data.type === 3) {
-                            //     $('#outside_city').removeClass(
-                            //     'd-none'); // Show the "outside_city" select
-                            //     $('.cash_on_delivery').parent().addClass(
-                            //     'd-none'); // Hide the "Cash On Delivery" option
-                            // } else {
-                            //     $('#outside_city').addClass(
-                            //     'd-none'); // Hide the "outside_city" select
-                            //     $('.cash_on_delivery').parent().removeClass(
-                            //     'd-none'); // Show the "Cash On Delivery" option
-                            // }
-
-                            // Show/hide outside_city based on shipping type
-                            // if (data.type === 2 || data.type === 3) {
-                            //     $('.cash_on_delivery').parent().addClass(
-                            //     'd-none'); // Hide the "Cash On Delivery" option
-                            //     $('input[name="payment_option"]').first().prop('checked', true);
-                            // } else {
-                            //     $('.cash_on_delivery').parent().removeClass(
-                            //     'd-none'); // Show the "Cash On Delivery" option
-                            // }
                         }
                     });
                 } else {

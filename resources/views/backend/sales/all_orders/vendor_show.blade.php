@@ -308,7 +308,7 @@
                                         $sum1 = 0;
                                         $sum2 = 0;
                                         $price = 0;
-                                        $orderDetails = $order->order_details()->where('vendor_id', '!=', 0)->get();
+                                        $orderDetails = $order->order_details()->where('vendor_id', '!=', 0)->where('vendor_id', Auth::guard('admin')->user()->id)->get();
                                         foreach ($orderDetails as $key => $orderDetail) {
                                             $sum1 += $orderDetail->v_comission;
                                             $sum2 += $orderDetail->qty;
@@ -392,7 +392,7 @@
                             </thead>
                             <tbody>
                                 @php
-                                   $orders = $order->order_details()->where('vendor_id', '!=', 0)->get();
+                                   $orders = $order->order_details()->where('vendor_id', '!=', 0)->where('vendor_id', Auth::guard('admin')->user()->id)->get();
                                 @endphp
 
                                 @foreach ($orders as $key => $orderDetail)
@@ -449,7 +449,6 @@
                                         </a>
                                     </td>
                                     <td class="text-center">{{ $orderDetail->price ?? '0.00' }}</td>
-                                    {{-- <td class="text-center">{{ $orderDetail->qty ?? '0' }}</td> --}}
                                     @if (Auth::guard('admin')->user()->role == '1')
                                         <td class="text-center qunatity_change">
                                             <input type="hidden" value="{{ $orderDetail->product_id }}" class="product_id">
@@ -485,7 +484,7 @@
                                             $sum1 = 0;
                                             $sum2 = 0;
                                             $price = 0;
-                                            $orderDetails = $order->order_details()->where('vendor_id', '!=', 0)->get();
+                                            $orderDetails = $order->order_details()->where('vendor_id', '!=', 0)->where('vendor_id', Auth::guard('admin')->user()->id)->get();
                                             foreach ($orderDetails as $key => $orderDetail) {
                                                 $sum1 += $orderDetail->v_comission;
                                                 $sum2 += $orderDetail->qty;

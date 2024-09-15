@@ -26,8 +26,8 @@
                     <span class="text">Dashboard</span>
                 </a>
             </li>
-            
-            <li class="menu-item has-submenu 
+
+            <li class="menu-item has-submenu
                 {{ ($prefix == 'admin/product') || ($prefix == 'admin/category') || ($route == 'attribute.index') || ($prefix == 'admin/brand') ? 'active' : '' }}
             ">
                     <a class="menu-link" href="#">
@@ -42,7 +42,7 @@
                         <a class="{{ ($prefix == 'admin/brand') ? 'active':'' }}" href="{{ route('brand.all') }}">Brands</a>
                 </div>
             </li>
-            
+
             <li class="menu-item has-submenu {{ ($prefix == 'admin/supplier')?'active':'' }}">
                     <a class="menu-link" href="#">
                         <i class="icon material-icons md-stars"></i>
@@ -53,7 +53,7 @@
                         <a class="{{ ($route == 'supplier.create') ? 'active':'' }}" href="{{ route('supplier.create') }}">Supplier Add</a>
                 </div>
             </li>
-            
+
             <li class="menu-item has-submenu {{ ($route == 'all_orders.index')?'active':'' }}">
                 <a class="menu-link" href="#">
                     <i class="icon material-icons md-shopping_cart"></i>
@@ -64,7 +64,7 @@
                 </div>
             </li>
 
-            <li class="menu-item has-submenu 
+            <li class="menu-item has-submenu
                 {{ ($route == 'stock_report.index')? 'active':'' }}
             ">
                 <a class="menu-link" href="#">
@@ -76,7 +76,7 @@
                 </div>
             </li>
 
-            <li class="menu-item has-submenu 
+            <li class="menu-item has-submenu
                 {{ ($route == 'cash-withdraw.index')? 'active':'' }}
             ">
                 <a class="menu-link" href="#">
